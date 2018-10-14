@@ -32,8 +32,11 @@ while glob.glob('*.png') != []: #ディレクトリのpng画像がなくなる�
 
     chkImgSize = PIL.Image.open(chosenImg) #画像を開く
     imgwidth, imgheight = chkImgSize.size #画像のWidthとHeightを取得
-    if (imgwidth == 854 and imgheight == 480):
-        shutil.move(chkImgSize, 'recipepictemp/'+chkImgSize) #画像サイズが854*480であればレシピ画像ディレクトリへ
+    if imgwidth == 854:
+        if imgheight == 480:
+            shutil.move(chkImgSize, 'recipepictemp/'+chkImgSize) #画像サイズが854*480であればレシピ画像ディレクトリへ
+        else:
+            shutil.move(chkImgSize, 'mispictemp/'+chkImgSize) #そうでなければその他画像ディレクトリへ
     else:
         shutil.move(chkImgSize, 'mispictemp/'+chkImgSize) #そうでなければその他画像ディレクトリへ
 
