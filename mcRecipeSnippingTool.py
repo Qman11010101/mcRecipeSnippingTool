@@ -34,11 +34,11 @@ while glob.glob('*.png') != []: #ディレクトリのpng画像がなくなる�
     imgwidth, imgheight = chkImgSize.size #画像のWidthとHeightを取得
     if imgwidth == 854:
         if imgheight == 480:
-            shutil.move(chkImgSize, 'recipepictemp/'+chkImgSize) #画像サイズが854*480であればレシピ画像ディレクトリへ
+            shutil.move(chosenImg, 'recipepictemp/'+chosenImg) #画像サイズが854*480であればレシピ画像ディレクトリへ
         else:
-            shutil.move(chkImgSize, 'mispictemp/'+chkImgSize) #そうでなければその他画像ディレクトリへ
+            shutil.move(chosenImg, 'mispictemp/'+chosenImg) #そうでなければその他画像ディレクトリへ
     else:
-        shutil.move(chkImgSize, 'mispictemp/'+chkImgSize) #そうでなければその他画像ディレクトリへ
+        shutil.move(chosenImg, 'mispictemp/'+chosenImg) #そうでなければその他画像ディレクトリへ
 
 #作業ディレクトリをレシピ画像ディレクトリにする
 os.chdir('./recipepictemp')
