@@ -33,12 +33,12 @@ while glob.glob('*.png') != []: #ディレクトリのpng画像がなくなる�
     chkImgSize = PIL.Image.open(chosenImg) #画像を開く
     imgwidth, imgheight = chkImgSize.size #画像のWidthとHeightを取得
     if (imgwidth == 854 and imgheight == 480):
-        shutil.copy2(chosenImg, 'recipepictemp/'+chosenImg) #画像サイズが854*480であればレシピ画像ディレクトリへ
+        shutil.copy2(chosenImg, 'recipepictemp/'+chosenImg) #画像サイズが854*480であればレシピ画像ディレクトリへコピー
     else:
-        shutil.copy2(chosenImg, 'mispictemp/'+chosenImg) #そうでなければその他画像ディレクトリへ
+        shutil.copy2(chosenImg, 'mispictemp/'+chosenImg) #そうでなければその他画像ディレクトリへコピー
     
-    chkImgSize.close()
-    os.remove(chosenImg) #きれいきれいしましょうね　おのこしはだめよ　だめっていってるだろ　はなしきけよ
+    chkImgSize.close() #33行目で開いた画像を閉じる
+    os.remove(chosenImg) #コピー元の画像を削除
 
 #作業ディレクトリをレシピ画像ディレクトリにする
 os.chdir('./recipepictemp')
