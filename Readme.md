@@ -16,7 +16,7 @@
 
 言語:Python  
 使用した標準でないライブラリ:Pillow  
-ライセンス:WTFPL
+ライセンス:GNU General Public License
 サイズ:240*120  
 形式:png  
 特記事項:レシピは上下に2つ表示されるので、画像が2枚できます。  
