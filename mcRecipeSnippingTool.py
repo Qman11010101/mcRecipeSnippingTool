@@ -7,6 +7,8 @@ import os.path
 import glob
 import shutil
 
+#作業中の文字
+print('作業を行っています。このウィンドウが消えるまでお待ち下さい')
 
 #プログラム中で使うディレクトリの作成
 
