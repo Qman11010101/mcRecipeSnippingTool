@@ -2,8 +2,9 @@
 #Twitter: @QmanEnobikto
 
 import os
-import PIL.Image
-import os.path
+import PIL
+from PIL import Image
+from os import path
 import glob
 import shutil
 
@@ -13,15 +14,15 @@ print('作業を行っています。このウィンドウが消えるまでお�
 #プログラム中で使うディレクトリの作成
 
 #完成したレシピ画像を入れるディレクトリ
-if os.path.exists('recipeImages') == False:
+if path.exists('recipeImages') == False:
     os.mkdir('recipeImages')
 
 #一時的にサイズが違う画像(風景等のスクショ等)を入れておくディレクトリ
-if os.path.exists('mispictemp') == False:
+if path.exists('mispictemp') == False:
     os.mkdir('mispictemp')
 
 #一時的にレシピ画像と思われる画像(サイズがW854H480であるもの)を入れておくディレクトリ
-if os.path.exists('recipepictemp') == False:
+if path.exists('recipepictemp') == False:
     os.mkdir('recipepictemp')
 
 
@@ -32,7 +33,7 @@ while glob.glob('*.png') != []: #ディレクトリのpng画像がなくなる�
 
     chosenImg = allimg[0] #リストallimgの一番最初を取り出す
 
-    chkImgSize = PIL.Image.open(chosenImg) #画像を開く
+    chkImgSize = Image.open(chosenImg) #画像を開く
     imgwidth, imgheight = chkImgSize.size #画像のWidthとHeightを取得
     if (imgwidth == 854 and imgheight == 480):
         shutil.copy2(chosenImg, 'recipepictemp/'+chosenImg) #画像サイズが854*480であればレシピ画像ディレクトリへコピー
@@ -53,13 +54,13 @@ while glob.glob('*') != []: #中身が空になるまで繰り返す
     chosenRecipeImg = recipeImages[0] #リストrecipeImagesの一番最初を取り出す
 
     #画像の上側の切り出し
-    imgAbove = PIL.Image.open(chosenRecipeImg)
+    imgAbove = Image.open(chosenRecipeImg)
     cutImgAbove = (304, 110, 544, 230)
     imgCuttedAbove = imgAbove.crop(cutImgAbove)
     imgCuttedAbove.save('../recipeImages/above_'+chosenRecipeImg)
 
     #画像の下側の切り出し
-    imgUnder = PIL.Image.open(chosenRecipeImg)
+    imgUnder = Image.open(chosenRecipeImg)
     cutImgUnder = (304, 240, 544, 360)
     imgCuttedUnder = imgUnder.crop(cutImgUnder)
     imgCuttedUnder.save('../recipeImages/under_'+chosenRecipeImg)
