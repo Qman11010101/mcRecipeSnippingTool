@@ -27,7 +27,7 @@ allimg = glob.glob("*.png")
 #レシピ画像とそれ以外を選り分ける
 while glob.glob("*.png") != []: #ディレクトリのpng画像がなくなるまで繰り返す
 
-    if allimg == []:
+    if allimg == []: #allimgが空になったらbreakして次のフェーズへ
         break
     
     chosenImg = allimg[0] #リストallimgの一番最初を取り出す
