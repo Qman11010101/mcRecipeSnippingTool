@@ -2,8 +2,7 @@
 #Twitter: @QmanEnobikto
 
 import os
-import PIL
-from PIL import Image
+from PIL import Image, ImageChops
 from os import path
 import glob
 import shutil
@@ -68,3 +67,28 @@ while glob.glob("*") != []: #中身が空になるまで繰り返す
 #あとかたづけ
 os.chdir("../") #作業ディレクトリを元のディレクトリにする
 os.rmdir("./recipepictemp") #作業に使ったディレクトリの削除
+
+#カレントディレクトリ移動
+os.chdir("./recipeImages")
+
+#手順1:画像をリストにぶち込む
+allRecIm = []
+allRecIm = glob.glob('*.png')
+
+#手順2:画像の生成
+genim = Image.new('RGB', (240, 120), (198, 198, 198))
+genim.save('match.png', 'PNG')
+ 
+#手順3:手順1で作った画像と同じ画像(合致率100%)をVanishment
+imgmatch = Image.open('match.png')
+
+while allRecIm != []:
+    imgcompared = Image.open(allRecIm[0])
+
+    if ImageChops.difference(imgcompared, imgmatch).getbbox() == None:
+        os.remove(allRecIm[0])
+        allRecIm.pop(0)
+    else:
+        allRecIm.pop(0)
+
+os.remove('match.png')
