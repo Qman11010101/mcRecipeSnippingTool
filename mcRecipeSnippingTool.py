@@ -17,31 +17,28 @@ print("作業を行っています。このウィンドウが消えるまでお�
 if path.exists("recipeImages") == False:
     os.mkdir("recipeImages")
 
-#一時的にサイズが違う画像(風景等のスクショ等)を入れておくディレクトリ
-if path.exists("mispictemp") == False:
-    os.mkdir("mispictemp")
-
 #一時的にレシピ画像と思われる画像(サイズがW854H480であるもの)を入れておくディレクトリ
 if path.exists("recipepictemp") == False:
     os.mkdir("recipepictemp")
 
+allimg = []
+allimg = glob.glob("*.png")
 
 #レシピ画像とそれ以外を選り分ける
 while glob.glob("*.png") != []: #ディレクトリのpng画像がなくなるまで繰り返す
-    allimg = []
-    allimg = glob.glob("*.png")
 
+    if allimg == []:
+        break
+    
     chosenImg = allimg[0] #リストallimgの一番最初を取り出す
 
     chkImgSize = Image.open(chosenImg) #画像を開く
     imgwidth, imgheight = chkImgSize.size #画像のWidthとHeightを取得
     if (imgwidth == 854 and imgheight == 480):
         shutil.copy2(chosenImg, "recipepictemp/"+chosenImg) #画像サイズが854*480であればレシピ画像ディレクトリへコピー
-    else:
-        shutil.copy2(chosenImg, "mispictemp/"+chosenImg) #そうでなければその他画像ディレクトリへコピー
     
-    chkImgSize.close() #33行目で開いた画像を閉じる
-    os.remove(chosenImg) #コピー元の画像を削除
+    chkImgSize.close() #開いた画像を閉じる
+    allimg.pop(0) #コピー元の画像をallimgリストから削除
 
 #作業ディレクトリをレシピ画像ディレクトリにする
 os.chdir("./recipepictemp")
@@ -65,22 +62,9 @@ while glob.glob("*") != []: #中身が空になるまで繰り返す
     imgCuttedUnder = imgUnder.crop(cutImgUnder)
     imgCuttedUnder.save("../recipeImages/under_"+chosenRecipeImg)
 
-    #加工が終わった画像をその他画像ディレクトリへ
-    shutil.move(chosenRecipeImg, "../mispictemp/"+chosenRecipeImg)
-
-#作業ディレクトリをその他画像ディレクトリにする
-os.chdir("../mispictemp")
-
-#その他画像ディレクトリの中身をもとに戻す
-while glob.glob("*") != []: #中身が空になるまで繰り返す
-    allimgtemp = []
-    allimgtemp = glob.glob("*")
-
-    chosenImgs = allimgtemp[0] #リストallimgtempの一番最初を取り出す
-
-    shutil.move(chosenImgs, "../"+chosenImgs) #一つ上の階層のディレクトリ(元のディレクトリ)に画像を戻す
+    #加工が終わった画像を元の画像ディレクトリへ
+    shutil.move(chosenRecipeImg, "../"+chosenRecipeImg)
 
 #あとかたづけ
 os.chdir("../") #作業ディレクトリを元のディレクトリにする
-os.rmdir("./mispictemp") #作業に使ったディレクトリの削除
 os.rmdir("./recipepictemp") #作業に使ったディレクトリの削除
