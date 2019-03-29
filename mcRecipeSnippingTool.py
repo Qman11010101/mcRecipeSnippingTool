@@ -32,9 +32,11 @@ while glob.glob("*.png") != []: #ディレクトリのpng画像がなくなる�
     chosenImg = allimg[0] #リストallimgの一番最初を取り出す
 
     chkImg = Image.open(chosenImg) #画像を開く
+    pxch = chkImg.load()
+    colorpx = (198,198,198)
     imgwidth, imgheight = chkImg.size #画像のWidthとHeightを取得
     if (imgwidth == 854 and imgheight == 480): #画像サイズが854*480であれば次の判定へ
-        if chkImg.load()[304,110] == (198,198,198):
+        if (pxch[304,110] == colorpx and pxch[544,230] == colorpx): #画像の左上・右下のpxの色を判定
             shutil.copy2(chosenImg, "recipepictemp/"+chosenImg) #レシピ画像ディレクトリへコピー
     
     chkImg.close() #開いた画像を閉じる
@@ -92,4 +94,5 @@ while allRecIm != []:
     else:
         allRecIm.pop(0)
 
+#手順4:使った画像を消す
 os.remove('match.png')
