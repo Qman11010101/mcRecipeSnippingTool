@@ -31,12 +31,13 @@ while glob.glob("*.png") != []: #ディレクトリのpng画像がなくなる�
     
     chosenImg = allimg[0] #リストallimgの一番最初を取り出す
 
-    chkImgSize = Image.open(chosenImg) #画像を開く
-    imgwidth, imgheight = chkImgSize.size #画像のWidthとHeightを取得
-    if (imgwidth == 854 and imgheight == 480):
-        shutil.copy2(chosenImg, "recipepictemp/"+chosenImg) #画像サイズが854*480であればレシピ画像ディレクトリへコピー
+    chkImg = Image.open(chosenImg) #画像を開く
+    imgwidth, imgheight = chkImg.size #画像のWidthとHeightを取得
+    if (imgwidth == 854 and imgheight == 480): #画像サイズが854*480であれば次の判定へ
+        if chkImg.load()[304,110] == (198,198,198):
+            shutil.copy2(chosenImg, "recipepictemp/"+chosenImg) #レシピ画像ディレクトリへコピー
     
-    chkImgSize.close() #開いた画像を閉じる
+    chkImg.close() #開いた画像を閉じる
     allimg.pop(0) #コピー元の画像をallimgリストから削除
 
 #作業ディレクトリをレシピ画像ディレクトリにする
