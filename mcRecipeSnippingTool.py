@@ -33,10 +33,10 @@ while glob.glob("*.png") != []: #ディレクトリのpng画像がなくなる�
 
     chkImg = Image.open(chosenImg) #画像を開く
     pxch = chkImg.load()
-    colorpx = (198,198,198)
+    colorpx = (198, 198, 198)
     imgwidth, imgheight = chkImg.size #画像のWidthとHeightを取得
-    if (imgwidth == 854 and imgheight == 480): #画像サイズが854*480であれば次の判定へ
-        if (pxch[304,110] == colorpx and pxch[544,230] == colorpx): #画像の左上・右下のpxの色を判定
+    if imgwidth == 854 and imgheight == 480: #画像サイズが854*480であれば次の判定へ
+        if pxch[304, 110] == colorpx and pxch[544, 230] == colorpx: #画像の左上・右下のpxの色を判定
             shutil.copy2(chosenImg, "recipepictemp/"+chosenImg) #レシピ画像ディレクトリへコピー
     
     chkImg.close() #開いた画像を閉じる
@@ -76,14 +76,14 @@ os.chdir("./recipeImages")
 
 #手順1:画像をリストにぶち込む
 allRecIm = []
-allRecIm = glob.glob('*.png')
+allRecIm = glob.glob("*.png")
 
 #手順2:画像の生成
-genim = Image.new('RGB', (240, 120), (198, 198, 198))
-genim.save('match.png', 'PNG')
+genim = Image.new("RGB", (240, 120), (198, 198, 198))
+genim.save("match.png", "PNG")
  
 #手順3:手順1で作った画像と同じ画像(合致率100%)をVanishment
-imgmatch = Image.open('match.png')
+imgmatch = Image.open("match.png")
 
 while allRecIm != []:
     imgcompared = Image.open(allRecIm[0])
@@ -95,4 +95,4 @@ while allRecIm != []:
         allRecIm.pop(0)
 
 #手順4:使った画像を消す
-os.remove('match.png')
+os.remove("match.png")
